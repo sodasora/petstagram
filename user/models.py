@@ -6,4 +6,4 @@ class UserModel(AbstractUser):
         db_table = 'user'
 
     user_chg = models.DateTimeField(auto_now=True)
-    user_nickname = models.CharField(max_length=20, default='')
+    nickname = models.CharField(max_length=20, default='')
