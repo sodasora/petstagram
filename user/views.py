@@ -26,6 +26,7 @@ def sign_up_view(request):
         else:
             if username == '' or password == '':
                 return render(request, 'user/signup.html', {'error': '사용자 이름과 패스워드는 필수값입니다.'})
+
             exist_user = get_user_model().objects.filter(username=username)
             if exist_user:
                 return render(request, 'user/signup.html', {'error': '사용자가 존재합니다'})
