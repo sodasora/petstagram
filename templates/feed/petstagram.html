@@ -81,27 +81,23 @@ Feed
                         <div class="card-body">
 
 
-{#                            #게시글 자세히 보기 관련 #}
-{#                            {% if feed.author == user %}#}
-{#                            <div style="display: flex; flex-direction: row; justify-content: right">#}
-{#                                <div style="text-align: right; margin-right: 10px">#}
-{#                                    <a href="/tweet/delete/{{ feed.id }}">#}
-{#                                        <span class="badge rounded-pill bg-danger">피드 삭제</span>#}
-{#                                    </a>#}
-{#                                </div>#}
-{#                                <div style="text-align: right">#}
-{#                                    <a href="/tweet/{{ tw.id }}">#}
-{#                                        <span class="badge rounded-pill bg-success">보기</span>#}
-{#                                    </a>#}
-{#                                </div>#}
-{#                            </div>#}
-{#                            {% elif tw.author != user %}#}
-{#                            <div style="text-align: right">#}
-{#                                <a href="/tweet/{{ tw.id }}">#}
-{#                                    <span class="badge rounded-pill bg-success">보기</span>#}
-{#                                </a>#}
-{#                            </div>#}
-{#                            {% endif %}#}
+                            #게시글 자세히 보기 관련
+                            {% if feed.author == user %}
+                            <div style="display: flex; flex-direction: row; justify-content: right">
+
+                                <div style="text-align: right">
+                                    <a href="/detailpost/{{ feed.id }}">
+                                        <span class="badge rounded-pill bg-success">보기</span>
+                                    </a>
+                                </div>
+                            </div>
+                            {% elif feed.author != user %}
+                            <div style="text-align: right">
+                                <a href="/detail/{{ feed.id }}">
+                                    <span class="badge rounded-pill bg-success">보기</span>
+                                </a>
+                            </div>
+                            {% endif %}
 
                             <a href="마이페이지/유저">{{ feed.author.username }}</a>
                             <div class="media">

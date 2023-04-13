@@ -9,3 +9,6 @@ def mainpage_feed(request):
         all_feed = FeedModel.objects.all().order_by('-created_at')
 
         return render(request, 'feed/petstagram.html', {'all_feed': all_feed})
+
+
+
