@@ -13,8 +13,9 @@ def detail_post(request, id):
     post_detail = Post.objects.get(id=id)
     return render(request,'detailpost/post_detail.html',{'detailpost':post_detail})
 
+
 @login_required()
 def delete_post(request, id):
     my_tweet = Post.objects.get(id=id)
     my_tweet.delete()
-    return redirect('/main')
+    return redirect('/')

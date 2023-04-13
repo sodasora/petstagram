@@ -26,12 +26,12 @@ def create_feed_view(request):
         post.content = request.POST.get('user-content','')
         post.save()
         # 게시글 생성시 Feed 같이 생성
-        FeedModel.objects.create(feed=post, author=user, title=post.title, content=post.content)
+        FeedModel.objects.create(post=post, author=user, title=post.title, content=post.content)
 
         # return HttpResponse('create_feed_view_POST')
         
-        # 작성 후 main으로 이동('main/'의 name)
-        return redirect('mainpage_feed')
+        # 작성 후 main으로 이동
+        return redirect('/')
 
 #           DEAD_CODE
 # def delete_feed_view(request, id):
