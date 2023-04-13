@@ -62,6 +62,10 @@ Feed
 <!--                                #로고이미지-->
                                     <img src="/static/img/logo.png" style="max-width: 100%">
                                 </div>
+                                <div class="media-body" style="text-align: right">
+{#                                    # 게시글 작성 연결#}
+                                    <a href="/post/" style="text-align: center;" class="mt-0">글 작성하기</a>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -71,39 +75,42 @@ Feed
 
             <!-- 작성 된 글이 나오는 곳 -->
             <div class="row">
-                {% for tw in tweet %}
+                {% for feed in all_feed %}
                 <div class="col-md-12 mb-2">
                     <div class="card">
                         <div class="card-body">
-                            {% if tw.author == user %}
-                            <div style="display: flex; flex-direction: row; justify-content: right">
-                                <div style="text-align: right; margin-right: 10px">
-                                    <a href="/tweet/delete/{{ tw.id }}">
-                                        <span class="badge rounded-pill bg-danger">삭제</span>
-                                    </a>
-                                </div>
-                                <div style="text-align: right">
-                                    <a href="/tweet/{{ tw.id }}">
-                                        <span class="badge rounded-pill bg-success">보기</span>
-                                    </a>
-                                </div>
-                            </div>
-                            {% elif tw.author != user %}
-                            <div style="text-align: right">
-                                <a href="/tweet/{{ tw.id }}">
-                                    <span class="badge rounded-pill bg-success">보기</span>
-                                </a>
-                            </div>
-                            {% endif %}
 
-                            <a href="마이페이지/유저">{{ tw.author.username }}</a>
+
+{#                            #게시글 자세히 보기 관련 #}
+{#                            {% if feed.author == user %}#}
+{#                            <div style="display: flex; flex-direction: row; justify-content: right">#}
+{#                                <div style="text-align: right; margin-right: 10px">#}
+{#                                    <a href="/tweet/delete/{{ feed.id }}">#}
+{#                                        <span class="badge rounded-pill bg-danger">피드 삭제</span>#}
+{#                                    </a>#}
+{#                                </div>#}
+{#                                <div style="text-align: right">#}
+{#                                    <a href="/tweet/{{ tw.id }}">#}
+{#                                        <span class="badge rounded-pill bg-success">보기</span>#}
+{#                                    </a>#}
+{#                                </div>#}
+{#                            </div>#}
+{#                            {% elif tw.author != user %}#}
+{#                            <div style="text-align: right">#}
+{#                                <a href="/tweet/{{ tw.id }}">#}
+{#                                    <span class="badge rounded-pill bg-success">보기</span>#}
+{#                                </a>#}
+{#                            </div>#}
+{#                            {% endif %}#}
+
+                            <a href="마이페이지/유저">{{ feed.author.username }}</a>
                             <div class="media">
                                 <div class="media-body">
-                                    <h4 class="mt-0">{{ tw.content }}</h4>
-                                    <h6 class="mt-0">{{ tw.content }}</h6>
+                                    <h4 class="mt-0">{{ feed.content }}</h4>
+                                    <h6 class="mt-0">{{ feed.content }}</h6>
                                 </div>
                                 <div style="text-align: right">
-                                    <span style="font-size: small">{{ tw.created_at|timesince }} 전</span>
+                                    <span style="font-size: small">{{ feed.created_at|timesince }}</span>
                                 </div>
 
                             </div>
@@ -111,335 +118,6 @@ Feed
                     </div>
                 </div>
                 {% endfor %}
-
-
-
-<!--testtesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttest-->
-            <div class="row">
-                <div class="col-md-12 mb-2">
-                    <div class="card">
-                        <div class="card-body">
-                            <div style="display: flex; flex-direction: row; justify-content: right">
-                                <div style="text-align: right; margin-right: 10px">
-                                    <a href="/tweet/delete/{{ tw.id }}">
-                                        <span class="badge rounded-pill bg-danger">삭제</span>
-                                    </a>
-                                </div>
-                                <div style="text-align: right">
-                                    <a href="/tweet/{{ tw.id }}">
-                                        <span class="badge rounded-pill bg-success">보기</span>
-                                    </a>
-                                </div>
-                            </div>
-
-                            <a href="마이페이지/유저">{{ tw.author.username }}d</a>
-                            <div class="media">
-                                <div class="media-body">
-                                    <h4 class="mt-0">{{ tw.content }}dd</h4>
-                                    <h6 class="mt-0">{{ tw.content }}ddd</h6>
-                                </div>
-                                <div style="text-align: right">
-                                    <span style="font-size: small">{{ tw.created_at|timesince }} 전</span>
-                                </div>
-
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="row">
-            <div class="col-md-12 mb-2">
-                <div class="card">
-                    <div class="card-body">
-                        <div style="display: flex; flex-direction: row; justify-content: right">
-                            <div style="text-align: right; margin-right: 10px">
-                                <a href="/tweet/delete/{{ tw.id }}">
-                                    <span class="badge rounded-pill bg-danger">삭제</span>
-                                </a>
-                            </div>
-                            <div style="text-align: right">
-                                <a href="/tweet/{{ tw.id }}">
-                                    <span class="badge rounded-pill bg-success">보기</span>
-                                </a>
-                            </div>
-                        </div>
-
-                        <a href="마이페이지/유저">{{ tw.author.username }}d</a>
-                        <div class="media">
-                            <div class="media-body">
-                                <h4 class="mt-0">{{ tw.content }}dd</h4>
-                                <h6 class="mt-0">{{ tw.content }}ddd</h6>
-                            </div>
-                            <div style="text-align: right">
-                                <span style="font-size: small">{{ tw.created_at|timesince }} 전</span>
-                            </div>
-
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-            <div class="row">
-            <div class="col-md-12 mb-2">
-                <div class="card">
-                    <div class="card-body">
-                        <div style="display: flex; flex-direction: row; justify-content: right">
-                            <div style="text-align: right; margin-right: 10px">
-                                <a href="/tweet/delete/{{ tw.id }}">
-                                    <span class="badge rounded-pill bg-danger">삭제</span>
-                                </a>
-                            </div>
-                            <div style="text-align: right">
-                                <a href="/tweet/{{ tw.id }}">
-                                    <span class="badge rounded-pill bg-success">보기</span>
-                                </a>
-                            </div>
-                        </div>
-
-                        <a href="마이페이지/유저">{{ tw.author.username }}d</a>
-                        <div class="media">
-                            <div class="media-body">
-                                <h4 class="mt-0">{{ tw.content }}dd</h4>
-                                <h6 class="mt-0">{{ tw.content }}ddd</h6>
-                            </div>
-                            <div style="text-align: right">
-                                <span style="font-size: small">{{ tw.created_at|timesince }} 전</span>
-                            </div>
-
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-            <div class="row">
-            <div class="col-md-12 mb-2">
-                <div class="card">
-                    <div class="card-body">
-                        <div style="display: flex; flex-direction: row; justify-content: right">
-                            <div style="text-align: right; margin-right: 10px">
-                                <a href="/tweet/delete/{{ tw.id }}">
-                                    <span class="badge rounded-pill bg-danger">삭제</span>
-                                </a>
-                            </div>
-                            <div style="text-align: right">
-                                <a href="/tweet/{{ tw.id }}">
-                                    <span class="badge rounded-pill bg-success">보기</span>
-                                </a>
-                            </div>
-                        </div>
-
-                        <a href="마이페이지/유저">{{ tw.author.username }}d</a>
-                        <div class="media">
-                            <div class="media-body">
-                                <h4 class="mt-0">{{ tw.content }}dd</h4>
-                                <h6 class="mt-0">{{ tw.content }}ddd</h6>
-                            </div>
-                            <div style="text-align: right">
-                                <span style="font-size: small">{{ tw.created_at|timesince }} 전</span>
-                            </div>
-
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-            <div class="row">
-            <div class="col-md-12 mb-2">
-                <div class="card">
-                    <div class="card-body">
-                        <div style="display: flex; flex-direction: row; justify-content: right">
-                            <div style="text-align: right; margin-right: 10px">
-                                <a href="/tweet/delete/{{ tw.id }}">
-                                    <span class="badge rounded-pill bg-danger">삭제</span>
-                                </a>
-                            </div>
-                            <div style="text-align: right">
-                                <a href="/tweet/{{ tw.id }}">
-                                    <span class="badge rounded-pill bg-success">보기</span>
-                                </a>
-                            </div>
-                        </div>
-
-                        <a href="마이페이지/유저">{{ tw.author.username }}d</a>
-                        <div class="media">
-                            <div class="media-body">
-                                <h4 class="mt-0">{{ tw.content }}dd</h4>
-                                <h6 class="mt-0">{{ tw.content }}ddd</h6>
-                            </div>
-                            <div style="text-align: right">
-                                <span style="font-size: small">{{ tw.created_at|timesince }} 전</span>
-                            </div>
-
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-            <div class="row">
-            <div class="col-md-12 mb-2">
-                <div class="card">
-                    <div class="card-body">
-                        <div style="display: flex; flex-direction: row; justify-content: right">
-                            <div style="text-align: right; margin-right: 10px">
-                                <a href="/tweet/delete/{{ tw.id }}">
-                                    <span class="badge rounded-pill bg-danger">삭제</span>
-                                </a>
-                            </div>
-                            <div style="text-align: right">
-                                <a href="/tweet/{{ tw.id }}">
-                                    <span class="badge rounded-pill bg-success">보기</span>
-                                </a>
-                            </div>
-                        </div>
-
-                        <a href="마이페이지/유저">{{ tw.author.username }}d</a>
-                        <div class="media">
-                            <div class="media-body">
-                                <h4 class="mt-0">{{ tw.content }}dd</h4>
-                                <h6 class="mt-0">{{ tw.content }}ddd</h6>
-                            </div>
-                            <div style="text-align: right">
-                                <span style="font-size: small">{{ tw.created_at|timesince }} 전</span>
-                            </div>
-
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-            <div class="row">
-            <div class="col-md-12 mb-2">
-                <div class="card">
-                    <div class="card-body">
-                        <div style="display: flex; flex-direction: row; justify-content: right">
-                            <div style="text-align: right; margin-right: 10px">
-                                <a href="/tweet/delete/{{ tw.id }}">
-                                    <span class="badge rounded-pill bg-danger">삭제</span>
-                                </a>
-                            </div>
-                            <div style="text-align: right">
-                                <a href="/tweet/{{ tw.id }}">
-                                    <span class="badge rounded-pill bg-success">보기</span>
-                                </a>
-                            </div>
-                        </div>
-
-                        <a href="마이페이지/유저">{{ tw.author.username }}d</a>
-                        <div class="media">
-                            <div class="media-body">
-                                <h4 class="mt-0">{{ tw.content }}dd</h4>
-                                <h6 class="mt-0">{{ tw.content }}ddd</h6>
-                            </div>
-                            <div style="text-align: right">
-                                <span style="font-size: small">{{ tw.created_at|timesince }} 전</span>
-                            </div>
-
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-            <div class="row">
-            <div class="col-md-12 mb-2">
-                <div class="card">
-                    <div class="card-body">
-                        <div style="display: flex; flex-direction: row; justify-content: right">
-                            <div style="text-align: right; margin-right: 10px">
-                                <a href="/tweet/delete/{{ tw.id }}">
-                                    <span class="badge rounded-pill bg-danger">삭제</span>
-                                </a>
-                            </div>
-                            <div style="text-align: right">
-                                <a href="/tweet/{{ tw.id }}">
-                                    <span class="badge rounded-pill bg-success">보기</span>
-                                </a>
-                            </div>
-                        </div>
-
-                        <a href="마이페이지/유저">{{ tw.author.username }}d</a>
-                        <div class="media">
-                            <div class="media-body">
-                                <h4 class="mt-0">{{ tw.content }}dd</h4>
-                                <h6 class="mt-0">{{ tw.content }}ddd</h6>
-                            </div>
-                            <div style="text-align: right">
-                                <span style="font-size: small">{{ tw.created_at|timesince }} 전</span>
-                            </div>
-
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-            <div class="row">
-            <div class="col-md-12 mb-2">
-                <div class="card">
-                    <div class="card-body">
-                        <div style="display: flex; flex-direction: row; justify-content: right">
-                            <div style="text-align: right; margin-right: 10px">
-                                <a href="/tweet/delete/{{ tw.id }}">
-                                    <span class="badge rounded-pill bg-danger">삭제</span>
-                                </a>
-                            </div>
-                            <div style="text-align: right">
-                                <a href="/tweet/{{ tw.id }}">
-                                    <span class="badge rounded-pill bg-success">보기</span>
-                                </a>
-                            </div>
-                        </div>
-
-                        <a href="마이페이지/유저">{{ tw.author.username }}d</a>
-                        <div class="media">
-                            <div class="media-body">
-                                <h4 class="mt-0">{{ tw.content }}dd</h4>
-                                <h6 class="mt-0">{{ tw.content }}ddd</h6>
-                            </div>
-                            <div style="text-align: right">
-                                <span style="font-size: small">{{ tw.created_at|timesince }} 전</span>
-                            </div>
-
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-            <div class="row">
-            <div class="col-md-12 mb-2">
-                <div class="card">
-                    <div class="card-body">
-                        <div style="display: flex; flex-direction: row; justify-content: right">
-                            <div style="text-align: right; margin-right: 10px">
-                                <a href="/tweet/delete/{{ tw.id }}">
-                                    <span class="badge rounded-pill bg-danger">삭제</span>
-                                </a>
-                            </div>
-                            <div style="text-align: right">
-                                <a href="/tweet/{{ tw.id }}">
-                                    <span class="badge rounded-pill bg-success">보기</span>
-                                </a>
-                            </div>
-                        </div>
-
-                        <a href="마이페이지/유저">{{ tw.author.username }}d</a>
-                        <div class="media">
-                            <div class="media-body">
-                                <h4 class="mt-0">{{ tw.content }}dd</h4>
-                                <h6 class="mt-0">{{ tw.content }}ddd</h6>
-                            </div>
-                            <div style="text-align: right">
-                                <span style="font-size: small">{{ tw.created_at|timesince }} 전</span>
-                            </div>
-
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-<!--testtesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttest-->
-
-
-
-
             </div>
         </div>
         <div class="col-md-2"></div>

@@ -1,6 +1,7 @@
 from django.db import models
 from user.models import UserModel
 
+
 # Create your models here.
 class Post(models.Model):  # 새로운 모델을 생성
     class Meta:

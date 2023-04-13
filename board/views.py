@@ -1,8 +1,10 @@
 from django.shortcuts import render, redirect
 from .models import Post
-from django.http  import HttpResponse
-# Create your views here.
+from feed.models import FeedModel
+from django.http import HttpResponseRedirect
 
+
+# Create your views here.
 def create_feed_view(request):
     #게시글 작성
     if request.method == 'GET':
@@ -10,19 +12,26 @@ def create_feed_view(request):
         # 유저가 로그인 됐는지 확인
         if user:
             # 유저가 로그인 했을 때
-            return  render(request, 'board/post.html')
+            return render(request, 'board/post.html')
         else:
             # 유저가 로그인 하지 않았을 때
-            return  redirect('/login')
+            return redirect('/login')
     elif request.method == 'POST':      # 사용자가 post 버튼을 눌러 게시를 했을지 실행됨
+        user = request.user # 게시글 작성시 필요해서 추가
         post = Post()
+
+        post.author = user # 게시글 작성시 필요해서 추가
         #작성자 입력 란
         post.title = request.POST.get('title','')
         post.content = request.POST.get('user-content','')
         post.save()
+        # 게시글 생성시 Feed 같이 생성
+        FeedModel.objects.create(feed=post, author=user, title=post.title, content=post.content)
 
         # return HttpResponse('create_feed_view_POST')
-        return render(request, 'board/post.html')
+        
+        # 작성 후 main으로 이동('main/'의 name)
+        return redirect('mainpage_feed')
 
 #           DEAD_CODE
 # def delete_feed_view(request, id):
