@@ -26,6 +26,7 @@ def sign_up_view(request):
         else:
             if username == '' or password == '':
                 return render(request, 'user/signup.html', {'error': '사용자 이름과 패스워드는 필수값입니다.'})
+
             exist_user = get_user_model().objects.filter(username=username)
             if exist_user:
                 return render(request, 'user/signup.html', {'error': '사용자가 존재합니다'})
@@ -41,7 +42,7 @@ def log_in_view(request):
         me = auth.authenticate(request, username=username, password=password)
         if me is not None:
             auth.login(request, me)
-            return redirect('/')
+            return redirect('/main/')
         else:
             return render(request, 'user/login.html', {'error': '유저이름 혹은 패스워드를 확인해 주세요'})
     elif request.method == 'GET':
@@ -54,4 +55,4 @@ def log_in_view(request):
 @login_required
 def logout(request):
     auth.logout(request)
-    return redirect('/login/')
+    return redirect('/main/')

@@ -3,9 +3,9 @@ from user.models import UserModel
 
 
 # Create your models here.
-class Post(models.Model):  # 새로운 모델을 생성
+class DetailPost(models.Model):  # 새로운 모델을 생성
     class Meta:
-        db_table = "post"
+        db_table = "detail"
 
     title = models.CharField("제목",max_length=50)
     author = models.ForeignKey(UserModel, on_delete=models.CASCADE)
