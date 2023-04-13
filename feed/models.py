@@ -8,7 +8,7 @@ class FeedModel(models.Model):
     class Meta:
         db_table = "board_feed"
 
-    feed = models.ForeignKey(Post, on_delete=models.CASCADE)
+    post = models.ForeignKey(Post, on_delete=models.CASCADE)
     author = models.ForeignKey(UserModel, on_delete=models.CASCADE)
     title = models.CharField("제목",max_length=50)
     content = models.CharField("내용",max_length=225)
