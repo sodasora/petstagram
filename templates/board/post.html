@@ -85,15 +85,16 @@
 {#로그인 했을경우#}
 {% block content %}
     <h2> petstagram 게시글 작성페이지 </h2>
-    <form method="/ost">
+{#    #폼 methon, action 수정#}
+    <form method="post" action="/post/">
     {% csrf_token %}
     <div>
 {#        <label for="title">제목</label>#}
         <input type="text" id="title" name="title" value="제목입력">
-        <button type="submit"></button>
     </div>
     <div>
         <textarea type="text" id="user-content" name="user-content" value="내용 입력"></textarea>
     </div>
+        <button type="submit">작성 하기</button>
     </form>
 {% endblock %}
