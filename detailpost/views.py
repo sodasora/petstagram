@@ -19,3 +19,14 @@ def delete_post(request, id):
     my_tweet = Post.objects.get(id=id)
     my_tweet.delete()
     return redirect('/')
+
+def update_post(request, id):
+    my_post= Post.objects.get(id=id)
+
+    if request.method == "POST":
+        my_post.title = request.POST['title']
+        my_post.content = request.POST['content']
+        my_post.save()
+        return render(request,'detailpost/post_detail.html',{'detailpost':my_post})
+    else:
+        return render(request,'detailpost/update.html',{'detailpost':my_post})
