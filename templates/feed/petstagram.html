@@ -84,21 +84,15 @@ Feed
 
 
                             #게시글 자세히 보기 관련
-                            {% if feed.post.author == user %}
-                            <div style="display: flex; flex-direction: row; justify-content: right">
+                            {% if user.is_authenticated %}
+                                <div style="display: flex; flex-direction: row; justify-content: right">
 
-                                <div style="text-align: right">
-                                    <a href="/detailpost/{{ feed.post.id }}">
-                                        <span class="badge rounded-pill bg-success">보기</span>
-                                    </a>
+                                    <div style="text-align: right">
+                                        <a href="/detailpost/{{ feed.post.id }}">
+                                            <span class="badge rounded-pill bg-success">보기</span>
+                                        </a>
+                                    </div>
                                 </div>
-                            </div>
-                            {% elif feed.author != user %}
-                            <div style="text-align: right">
-                                <a href="/detail/{{ feed.post.id }}">
-                                    <span class="badge rounded-pill bg-success">보기</span>
-                                </a>
-                            </div>
                             {% endif %}
 
                             <a href="마이페이지/유저">{{ feed.author.username }}</a>
