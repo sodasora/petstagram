@@ -77,38 +77,32 @@ Feed
 
             <!-- 작성 된 글이 나오는 곳 -->
             <div class="row">
-                {% for feed in all_feed %}
+                {% for post_feed in post_fedds %}
                 <div class="col-md-12 mb-2">
                     <div class="card">
                         <div class="card-body">
 
 
-                            #게시글 자세히 보기 관련
-                            {% if feed.post.author == user %}
-                            <div style="display: flex; flex-direction: row; justify-content: right">
+{#                            #게시글 자세히 보기 관련,다른사람 게시물 볼 수 있게 수정 진행함#}
+                            {% if user.is_authenticated %}
+                                <div style="display: flex; flex-direction: row; justify-content: right">
 
-                                <div style="text-align: right">
-                                    <a href="/detailpost/{{ feed.post.id }}">
-                                        <span class="badge rounded-pill bg-success">보기</span>
-                                    </a>
+                                    <div style="text-align: right">
+                                        <a href="/detailpost/{{ post_feed.id }}">
+                                            <span class="badge rounded-pill bg-success">보기</span>
+                                        </a>
+                                    </div>
                                 </div>
-                            </div>
-                            {% elif feed.author != user %}
-                            <div style="text-align: right">
-                                <a href="/detail/{{ feed.post.id }}">
-                                    <span class="badge rounded-pill bg-success">보기</span>
-                                </a>
-                            </div>
                             {% endif %}
 
-                            <a href="마이페이지/유저">{{ feed.author.username }}</a>
+                            <a href="마이페이지/유저">{{ post_feed.author.username }}</a>
                             <div class="media">
                                 <div class="media-body">
-                                    <h4 class="mt-0">{{ feed.title }}</h4>
-                                    <h6 class="mt-0">{{ feed.content|slice:":20" }}</h6>
+                                    <h4 class="mt-0">{{ post_feed.title }}</h4>
+                                    <h6 class="mt-0">{{ post_feed.content|slice:":20" }}</h6>
                                 </div>
                                 <div style="text-align: right">
-                                    <span style="font-size: small">{{ feed.created_at|timesince }}</span>
+                                    <span style="font-size: small">{{ post_feed.created_at|timesince }}</span>
                                 </div>
 
                             </div>

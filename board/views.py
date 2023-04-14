@@ -1,6 +1,5 @@
 from django.shortcuts import render, redirect
 from .models import Post
-from feed.models import FeedModel
 from django.http import HttpResponseRedirect
 
 
@@ -25,8 +24,6 @@ def create_feed_view(request):
         post.title = request.POST.get('title','')
         post.content = request.POST.get('user-content','')
         post.save()
-        # 게시글 생성시 Feed 같이 생성
-        FeedModel.objects.create(post=post, author=user, title=post.title, content=post.content)
 
         # return HttpResponse('create_feed_view_POST')
         
@@ -49,3 +46,11 @@ def create_feed_view(request):
 #     #게시글 조회
 #     pass
 #           DEAD_CODE_END
+
+
+# 메인페이지 게시글 피드
+def mainpage_feed(request):
+    if request.method == 'GET':
+        post_feeds = Post.objects.all().order_by('-create_at')
+
+        return render(request, 'board/petstagram.html', {'post_fedds': post_feeds})
