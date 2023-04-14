@@ -7,7 +7,7 @@ Feed
 {% block content %}
 <div class="container timeline-container">
     <div class="row">
-    <!-- 왼쪽 컬럼 -->
+        <!-- 왼쪽 컬럼 -->
         <!--로그인 안된상태-->
         {% if not user.is_authenticated %}
         <div class="col-md-3">
@@ -25,8 +25,8 @@ Feed
                         </div>
                         <hr>
                         <div style="float: right">
-                            <button type="submit" class="btn btn-primary">로그인</button>
-                            <a href="/signup" class="btn btn-secondary">회원가입</a>
+                            <button type="submit" class="btn btn-outline-success">로그인</button>
+                            <a href="/signup" class="btn btn-success">회원가입</a>
                         </div>
                     </form>
                 </div>
@@ -39,16 +39,18 @@ Feed
             <div class="card">
                 <div class="card-body">
                     <h5 class="card-title">{{ user.username }}</h5>
-                    <p class="card-text"> 유저 소개말 </p>
                     <!--프로필페이지-->
-                    <a href="프로필페이지.html" class="card-text"> 프로필페이지 </a>
+                    <nav class="nav flex-column">
+                        <a class="nav-link" href="#"> 마이페이지 </a>
+                        <a class="nav-link" href="/post/">글 작성하기</a>
+                    </nav>
                     <!--프로필페이지-->
                 </div>
             </div>
         </div>
         {% endif %}
 
-    <!-- 오른 쪽 컬럼-->
+        <!-- 오른 쪽 컬럼-->
         <div class="col-md-7">
             <!-- 글을 작성 하는 곳 -->
             <div class="row mb-2">
@@ -57,13 +59,13 @@ Feed
                         <div class="card-body">
                             <div class="media">
                                 <div class="media-body">
-<!--                                <h5 style="text-align: center;" class="mt-0">아래는 글 목록입니다.</h5>-->
+                                    <!--                                <h5 style="text-align: center;" class="mt-0">아래는 글 목록입니다.</h5>-->
 
-<!--                                #로고이미지-->
+                                    <!--                                #로고이미지-->
                                     <img src="/static/img/logo.png" style="max-width: 100%">
                                 </div>
                                 <div class="media-body" style="text-align: right">
-{#                                    # 게시글 작성 연결#}
+                                    {# # 게시글 작성 연결#}
                                     <a href="/post/" style="text-align: center;" class="mt-0">글 작성하기</a>
                                 </div>
                             </div>
@@ -82,18 +84,18 @@ Feed
 
 
                             #게시글 자세히 보기 관련
-                            {% if feed.author == user %}
+                            {% if feed.post.author == user %}
                             <div style="display: flex; flex-direction: row; justify-content: right">
 
                                 <div style="text-align: right">
-                                    <a href="/detailpost/{{ feed.id }}">
+                                    <a href="/detailpost/{{ feed.post.id }}">
                                         <span class="badge rounded-pill bg-success">보기</span>
                                     </a>
                                 </div>
                             </div>
                             {% elif feed.author != user %}
                             <div style="text-align: right">
-                                <a href="/detail/{{ feed.id }}">
+                                <a href="/detail/{{ feed.post.id }}">
                                     <span class="badge rounded-pill bg-success">보기</span>
                                 </a>
                             </div>
@@ -102,8 +104,8 @@ Feed
                             <a href="마이페이지/유저">{{ feed.author.username }}</a>
                             <div class="media">
                                 <div class="media-body">
-                                    <h4 class="mt-0">{{ feed.content }}</h4>
-                                    <h6 class="mt-0">{{ feed.content }}</h6>
+                                    <h4 class="mt-0">{{ feed.title }}</h4>
+                                    <h6 class="mt-0">{{ feed.content|slice:":20" }}</h6>
                                 </div>
                                 <div style="text-align: right">
                                     <span style="font-size: small">{{ feed.created_at|timesince }}</span>

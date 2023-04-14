@@ -42,7 +42,7 @@ def log_in_view(request):
         me = auth.authenticate(request, username=username, password=password)
         if me is not None:
             auth.login(request, me)
-            return redirect('/main/')
+            return redirect('/')
         else:
             return render(request, 'user/login.html', {'error': '유저이름 혹은 패스워드를 확인해 주세요'})
     elif request.method == 'GET':
@@ -55,4 +55,4 @@ def log_in_view(request):
 @login_required
 def logout(request):
     auth.logout(request)
-    return redirect('/main/')
+    return redirect('/')

@@ -4,5 +4,5 @@ from . import views
 
 
 urlpatterns = [
-    path('main/', views.mainpage_feed, name='mainpage_feed'),
+    path('', views.mainpage_feed, name='mainpage_feed'),
 ]
