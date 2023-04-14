@@ -7,13 +7,16 @@
 {% block content %}
     <div class="container timeline-container">
         <div class="row">
+
             <!-- 왼쪽 컬럼 -->
             <div class="col-md-3">
                 <div class="card">
                     <div class="card-body">
                         <h5 class="card-title">{{ user.username }}</h5>
-                        <p class="card-text"> {{ user.bio }}</p>
-
+                        <nav class="nav flex-column">
+                            <a class="nav-link" href="/">피드페이지</a>
+                            <a class="nav-link" href="#">마이페이지</a>
+                        </nav>
                     </div>
                 </div>
             </div>
@@ -24,6 +27,11 @@
                         <div class="card">
                             <div class="card-body">
                                 {% if detailpost.author == user %}
+                                    <div style="text-align: right">
+                                        <a href="/detailpost/update/{{ detailpost.id }}">
+                                            <span class="badge rounded-pill bg-success">수정</span>
+                                        </a>
+                                    </div>
                                     <div style="text-align: right">
                                         <a href="/detailpost/delete/{{ detailpost.id }}">
                                             <span class="badge rounded-pill bg-danger">삭제</span>
