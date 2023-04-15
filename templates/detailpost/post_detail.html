@@ -25,37 +25,109 @@
                 <div class="row">
                     <div class="col-md-12 mb-2">
                         <div class="card">
+
+                            {#게시글 div#}
                             <div class="card-body">
-                                {% if detailpost.author == user %}
+
+                                {#수정/삭제 버튼#}
+                                {% if post.author == user %}
                                     <div style="text-align: right">
-                                        <a href="/detailpost/update/{{ detailpost.id }}">
+                                        <a href="/detailpost/update/{{ post.id }}">
                                             <span class="badge rounded-pill bg-success">수정</span>
                                         </a>
                                     </div>
                                     <div style="text-align: right">
-                                        <a href="/detailpost/delete/{{ detailpost.id }}">
+                                        <a href="/detailpost/delete/{{ post.id }}">
                                             <span class="badge rounded-pill bg-danger">삭제</span>
                                         </a>
                                     </div>
                                 {% endif %}
+                                {#수정/삭제 버튼#}
+
+                                {#게시글 내용#}
                                 <div class="media">
-                                    <h3 class="mt-0">제목 : {{ detailpost.title }}</h3>
+                                    <h3 class="mt-0">제목 : {{ post.title }}</h3>
                                     <div class="media-bod">
-                                        <h5 class="mt-0">{{ detailpost.content }}</h5>
+                                        <h5 class="mt-0">{{ post.content }}</h5>
 
                                     </div>
                                     <div style="text-align: right">
-                                        <span style="font-size: small">{{ detailpost.author.username }}-{{ detailpost.created_at|timesince }} 전</span>
+                                        <span style="font-size: small">{{ post.author.username }}-{{ post.create_at|timesince }} 전</span>
+                                        <br><span style="font-size: small">{{ post.comment_count }}개</span>
+                                        <button onclick="comment_all()" type="button" class="btn btn-outline-success">댓글 보기</button>
+                                    </div>
+                                </div>
+                                {#게시글 내용#}
+
+                            </div>
+                            {#게시글 div#}
+
+                        </div>
+
+                        <hr>
+
+                        <div id="comment_list" class="comment_box">
+                        {#댓글 보이는 곳#}
+                        <div class="card" style="overflow-y: scroll; height:250px;">
+                            <div class="card-body">
+                            {% for post_comment in post_comments %}
+
+                                {#댓글 수정/삭제버튼#}
+{#                                {% if post_comment.author == user %}#}
+{#                                    <div style="text-align: right">#}
+{#                                        <a href="/post_comment/update/{{ post_comment.id }}">#}
+{#                                            <span class="badge rounded-pill bg-success">수정</span>#}
+{#                                        </a>#}
+{#                                    </div>#}
+{#                                {% elif post_comment.author == user or post.author == user %}#}
+{#                                    <div style="text-align: right">#}
+{#                                        <a href="/post_comment/delete/{{ post_comment.id }}">#}
+{#                                            <span class="badge rounded-pill bg-danger">삭제</span>#}
+{#                                        </a>#}
+{#                                    </div>#}
+{#                                {% endif %}#}
+                                {#댓글 수정/삭제버튼#}
+
+                                <div class="media">
+                                    <h6 class="mt-0"><b>{{ post_comment.author }}</b></h6>
+                                    <div class="media-bod" style="display: flex; flex-direction: row">
+                                        <h6 style="width: 90%" class="mt-0">{{ post_comment.content }}</h6>
+                                        <form method="post" action="/detailpost/{{ post.id }}/like">
+                                            {% csrf_token %}
+                                            <button type="submit" id="like" name="like" style="margin: auto">💚<br>{{ post_comment.like }}</button>
+                                        </form>
+                                    </div>
+                                    <div style="text-align: right">
+                                        <span style="font-size: small">-{{ post_comment.create_at|timesince }} 전</span>
+                                    </div>
+                                </div>
+                                <hr>
+                            {% endfor %}
+                            </div>
+                        </div>
+                        {#댓글 보이는 곳#}
+
+                        {#댓글 작성#}
+                        <form method="post" action="/detailpost/{{ post.id }}/post_comment/">
+                            {% csrf_token %}
+                            <div class="card">
+                                <div class="card-body">
+                                    <div class="media">
+                                        <div class="media-bod">
+                                            <input type="text" id="post_comment_content" name="post_comment_content" placeholder="댓글">
+                                            <div style="text-align: right; margin-top: 10px">
+                                                <button type="submit" class="btn btn-outline-success">작성 하기</button>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
+                        </form>
+                        {#댓글 작성#}
                         </div>
+
                     </div>
                 </div>
-                <!-- 글 작성 하는 곳 -->
-
-                <hr>
-
             </div>
         </div>
     </div>
