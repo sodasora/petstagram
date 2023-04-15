@@ -53,8 +53,12 @@ def create_feed_view(request):
 def mainpage_feed(request):
     if request.method == 'GET':
         post_feeds = Post.objects.all().order_by('-create_at')
+        # post_comments = PostComment.objects.filter(post=post)
+        # num_comments = len(post_comments)
 
-        return render(request, 'board/petstagram.html', {'post_fedds': post_feeds})
+        return render(request, 'board/petstagram.html', {'post_fedds': post_feeds,
+                                                         # 'num_comments': num_comments,
+                                                         })
 
 
 # 게시글 댓글기능 추가
@@ -69,13 +73,15 @@ def post_comment(request, id):
 
         post_comment = PostComment(post=post, author=author, content=post_comment_content)
         post_comment.save()
+        post.comment_count += 1
+        post.save()
 
-        num_comments = len(post_comments)
+        # num_comments = len(post_comments)
 
         # return redirect('/detailpost/'+str(id))
         return render(request, 'detailpost/post_detail.html', {'post': post,
                                                                'post_comments': post_comments,
-                                                               'num_comments': num_comments,
+                                                               # 'num_comments': num_comments,
                                                                })
 
 # # 좋아요기능 미구현

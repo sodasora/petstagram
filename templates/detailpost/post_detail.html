@@ -53,7 +53,7 @@
                                     </div>
                                     <div style="text-align: right">
                                         <span style="font-size: small">{{ post.author.username }}-{{ post.create_at|timesince }} 전</span>
-                                        <br><span style="font-size: small">{{num_comments}}개</span>
+                                        <br><span style="font-size: small">{{ post.comment_count }}개</span>
                                         <button onclick="comment_all()" type="button" class="btn btn-outline-success">댓글 보기</button>
                                     </div>
                                 </div>

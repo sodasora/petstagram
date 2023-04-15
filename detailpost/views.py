@@ -12,10 +12,12 @@ from django.views.generic import ListView, TemplateView
 def detail_post(request, id):
     post = Post.objects.get(id=id)
     post_comments = PostComment.objects.filter(post=post)
-    num_comments = len(post_comments)
+    # num_comments = len(post_comments)
 
     return render(request, 'detailpost/post_detail.html',
-                      {'post': post, 'post_comments': post_comments, 'num_comments': num_comments})
+                      {'post': post, 'post_comments': post_comments,
+                       # 'num_comments': num_comments,
+                       })
 
 
 @login_required()
@@ -37,10 +39,8 @@ def update_post(request, id):
         return render(request,'detailpost/update.html',{'post':post})
 
 
+# # 댓글 좋아요 기능 미구현
 # def post_comment_like(request, id):
-#     print(id)
-#     print(id)
-#     print(id)
 #     post = Post.objects.get(id=id)
 #     post_comments = PostComment.objects.filter(post=post)
 #     num_comments = len(post_comments)

@@ -99,10 +99,14 @@ Feed
                             <div class="media">
                                 <div class="media-body">
                                     <h4 class="mt-0">{{ post_feed.title }}</h4>
-                                    <h6 class="mt-0">{{ post_feed.content|slice:":20" }}</h6>
+                                    {% if post_feed.content|length > 20 %}
+                                        <h6 class="mt-0">{{ post_feed.content|slice:":20" }} ...</h6>
+                                    {% else %}
+                                        <h6 class="mt-0">{{ post_feed.content|slice:":20" }}</h6>
+                                    {% endif %}
                                 </div>
                                 <div style="text-align: right">
-                                    <span style="font-size: small">{{ post_feed.create_at|timesince }}</span>
+                                    <span style="font-size: small">{{ post_feed.comment_count }}개의 댓글 {{ post_feed.create_at|timesince }} 전</span>
                                 </div>
 
                             </div>
