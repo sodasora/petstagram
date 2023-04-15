@@ -1,5 +1,4 @@
 from django.shortcuts import render, redirect
-from .models import DetailPost
 from board.models import Post, PostComment
 from django.contrib.auth.decorators import login_required
 
@@ -33,6 +32,7 @@ def update_post(request, id):
     if request.method == "POST":
         post.title = request.POST['title']
         post.content = request.POST['content']
+
         post.save()
         return render(request,'detailpost/post_detail.html',{'post':post})
     else:

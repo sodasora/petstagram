@@ -1,4 +1,3 @@
-
 {% extends 'base.html' %}
 
 {# 사용자가 로그인 하고 있는 상태인지 확인 #}
@@ -29,11 +28,12 @@
                             {% csrf_token %}
                             <div>
                                 {#        <label for="title">제목</label>#}
-                                <input type="text" id="{{ post.title }}" name="title" placeholder="어떤 점이 인상깊었나요?">
+                                <input type="text" id="{{ post.title }}" name="title" placeholder="{{ post.title }}">
+
                             </div>
                             <br>
                             <div>
-                                <textarea type="text" id="{{ post.content }}" name="content" placeholder="오늘 있었던 일을 입력해 보세요!!"></textarea>
+                                <textarea type="text" id="{{ post.content }}" name="content" placeholder="{{ post.content }}"></textarea>
                             </div>
                             <br>
                                 <button type="submit" class="btn btn-outline-success" >수정 하기</button>
