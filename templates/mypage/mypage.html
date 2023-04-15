@@ -1,0 +1,47 @@
+
+{% extends 'base.html' %}
+
+{# 사용자가 로그인 하고 있는 상태인지 확인 #}
+
+{#로그인 했을경우#}
+{% block content %}
+    <div class="container timeline-container">
+        <div class="row">
+            {#  nav  #}
+            <div class="col-md-3">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">{{ user.username }}</h5>
+                        <nav class="nav flex-column">
+                            <a class="nav-link" href="/">피드페이지</a>
+                            <a class="nav-link" href="#">상세 게시글</a>
+                            <a class="nav-link" href="/mypage_update">프로필 수정</a>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+
+            {# 유저 게시글 #}
+           <div class="col-md-9">
+                <h1>내가 작성한 게시글</h1>
+                <ul>
+                    {% for post in user.post_set.all %}
+                        <div class="col-md-9">
+                            <div class="card mb-3">
+                                <div class="card-body">
+                                    <div style="text-align: right">
+                                        <a href="/detailpost/{{ post.id }}">
+                                            <span class="badge rounded-pill bg-success">수정하기</span>
+                                        </a>
+                                    </div>
+                                    <h5 class="card-title">{{ post.title }}</h5>
+                                    <p class="card-text">{{ post.content }}</p>
+                                </div>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+    </div>
+{% endblock %}
