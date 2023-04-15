@@ -28,12 +28,12 @@
                             {% csrf_token %}
                             <div>
                                 {#        <label for="title">제목</label>#}
-                                <input type="text" id="{{ post.title }}" name="title" placeholder="{{ post.title }}">
+                                <input type="text" id="{{ post.title }}" name="title" value="{{ post.title }}">
 
                             </div>
                             <br>
                             <div>
-                                <textarea type="text" id="{{ post.content }}" name="content" placeholder="{{ post.content }}"></textarea>
+                                <textarea type="text" id="{{ post.content }}" name="content" >{{ post.content }}"</textarea>
                             </div>
                             <br>
                                 <button type="submit" class="btn btn-outline-success" >수정 하기</button>
