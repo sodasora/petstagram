@@ -25,15 +25,15 @@
                     <div class="col-md-12">
                         <h2><b>{{ user.username }}</b>님 오늘은 어떤 좋은 일이 있었나요? </h2>
                         {#    #폼 methon, action 수정#}
-                        <form method="POST" action="/detailpost/update/{{ detailpost.id }}">
+                        <form method="POST" action="/detailpost/update/{{ post.id }}">
                             {% csrf_token %}
                             <div>
                                 {#        <label for="title">제목</label>#}
-                                <input type="text" id="{{ detailpost.title }}" name="title" placeholder="어떤 점이 인상깊었나요?">
+                                <input type="text" id="{{ post.title }}" name="title" placeholder="어떤 점이 인상깊었나요?">
                             </div>
                             <br>
                             <div>
-                                <textarea type="text" id="{{ detailpost.content }}" name="content" placeholder="오늘 있었던 일을 입력해 보세요!!"></textarea>
+                                <textarea type="text" id="{{ post.content }}" name="content" placeholder="오늘 있었던 일을 입력해 보세요!!"></textarea>
                             </div>
                             <br>
                                 <button type="submit" class="btn btn-outline-success" >수정 하기</button>

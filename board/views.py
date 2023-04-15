@@ -1,5 +1,6 @@
 from django.shortcuts import render, redirect
-from .models import Post
+from .models import Post, PostComment
+from user.models import UserModel
 from django.http import HttpResponseRedirect
 
 
@@ -54,3 +55,37 @@ def mainpage_feed(request):
         post_feeds = Post.objects.all().order_by('-create_at')
 
         return render(request, 'board/petstagram.html', {'post_fedds': post_feeds})
+
+
+# 게시글 댓글기능 추가
+def post_comment(request, id):
+    if request.method == 'POST':
+        post_comment_content = request.POST.get('post_comment_content')
+        user_id = request.user.id
+        post = Post.objects.get(id=id)
+        author = UserModel.objects.get(id=user_id)
+        post_comments = PostComment.objects.filter(post=post)
+
+
+        post_comment = PostComment(post=post, author=author, content=post_comment_content)
+        post_comment.save()
+
+        num_comments = len(post_comments)
+
+        # return redirect('/detailpost/'+str(id))
+        return render(request, 'detailpost/post_detail.html', {'post': post,
+                                                               'post_comments': post_comments,
+                                                               'num_comments': num_comments,
+                                                               })
+
+# # 좋아요기능 미구현
+# def post_comment_like(request, id):
+#     post = Post.objects.get(id=id)
+#     post_comments = PostComment.objects.filter(post=post)
+#     num_comments = len(post_comments)
+#     post_comment_num = request.POST['like']
+#     post_comment = PostComment.objects.get(id=post_comment_num)
+#     if request.method == 'POST':
+#         post_comment.like += 1
+#         return render(request, 'detailpost/post_detail.html',
+#                       {'post': post, 'post_comments': post_comments, 'num_comments': num_comments})
