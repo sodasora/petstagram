@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect
 from .models import Post, PostComment
 from user.models import UserModel
 from django.http import HttpResponseRedirect
+from django.contrib.auth.decorators import login_required
 
 
 # Create your views here.
@@ -62,6 +63,7 @@ def mainpage_feed(request):
 
 
 # 게시글 댓글기능 추가
+@login_required
 def post_comment(request, id):
     if request.method == 'POST':
         post_comment_content = request.POST.get('post_comment_content')
@@ -83,6 +85,41 @@ def post_comment(request, id):
                                                                'post_comments': post_comments,
                                                                # 'num_comments': num_comments,
                                                                })
+
+
+# 댓글 삭제
+@login_required
+def post_comment_delete(request, id):
+    post_comment = PostComment.objects.get(id=id)
+    post_comment.delete()
+    post = Post.objects.get(id=post_comment.post.id)
+    post.comment_count -= 1
+    post.save()
+    post_comments = PostComment.objects.filter(post=post)
+
+    return render(request, 'detailpost/post_detail.html',
+                          {'post': post, 'post_comments': post_comments,
+                           })
+
+
+# 댓글 수정
+@login_required
+def post_comment_update(request, id):
+    if request.method == 'GET':
+        post_comment = PostComment.objects.get(id=id)
+        post = Post.objects.get(id=post_comment.post.id)
+        return render(request, 'board/post_comment_update.html', {'post': post, 'post_comment': post_comment})
+
+    elif request.method == 'POST':
+        post_comment = PostComment.objects.get(id=id)
+        post = Post.objects.get(id=post_comment.post.id)
+        post_comment.content = request.POST.get('post_comment_content')
+        post_comment.save()
+        post_comments = PostComment.objects.filter(post=post)
+        return render(request, 'detailpost/post_detail.html',
+                      {'post': post, 'post_comments': post_comments,
+                       })
+
 
 # # 좋아요기능 미구현
 # def post_comment_like(request, id):
